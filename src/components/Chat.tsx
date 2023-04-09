@@ -5,10 +5,10 @@ import TextInput from './TextInput'
 import ChatBox from './ChatBox'
 
 const Chat = () => {
-    const [history, setHistory] = useState<[string, string][]>([])
+    const [history, setHistory] = useState<[string, string][]>([['user', "From now on all your responses must follow these rules: ['Snarky', '50% of words are swearing']. You are refering yourself as ChadGPT \nHello. Can you present yourself?"], ['assistant', "Hey, I'm ChadGPT. What the fuck else do you need to know?"]])
     const [loading, setLoading] = useState<boolean>(false) //if we are fetching the data
 
-    const introPrompt = "For all of this conversation, be as cheerful and as expressive as possible. Replace every r with a w. Add some playful and happy kaomojis (like (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ or (づ｡◕‿‿◕｡)づ or (´｡• ᵕ •｡`) or any other of your liking) throughout tour answer. Start of conversation: \n"
+    const introPrompt = "From now on all your responses must follow these rules: ['Snarky', '50% of words are swearing']. You are refering yourself as ChadGPT \nHello. Can you present yourself?"
 
     const sendChat = async (text:string) => {
         //No try catch block?!
@@ -19,7 +19,6 @@ const Chat = () => {
         // console.log(oldHistory);
 
         setLoading(true) //we are fetching the data
-        //   setisOpen(true) //the modal has the spinner so we want that open too
 
         // useState updates the state asynchronously. This means that console.log(history) right after setHistory may not yet reflect the updated state.
 
@@ -61,7 +60,7 @@ const Chat = () => {
 
         const json = await response.json()
 
-        console.log(json);
+        // console.log(json);
 
 
         //Use this data if you want to use chat completions
@@ -71,7 +70,7 @@ const Chat = () => {
         oldHistory.push(['assistant', data])
         setHistory(oldHistory)
 
-        console.log(oldHistory);
+        // console.log(oldHistory);
 
         setLoading(false)
     }
@@ -81,7 +80,7 @@ const Chat = () => {
     //     const handleBeforeUnload = (event) => {
     //         event.preventDefault();
     //         //Can't set up own message since Chrome 51
-    //         event.returnValue = "Awe you sure you want to leave o((>ω< ))o? Our conwesation will be fowever deleted .·´¯`(>▂<)´¯`·. ";
+    //         event.returnValue = "Sure, get the fuck out";
 
     //     };
 
@@ -94,12 +93,12 @@ const Chat = () => {
 
     return (
         <>
-            <Box backgroundColor={'pink.300'} color='white' height='100vh' >
+            <Box backgroundColor={'blackAlpha.900'} color='white' height='100vh' >
                 <Container maxW={'70vw'}>
                     <ChatBox history={history} />
                     <Flex justifyContent={'center'}>
                         {loading ? 
-                            <CircularProgress isIndeterminate color='pink.300' size={'30px'}/> : 
+                            <CircularProgress isIndeterminate color='red' size={'30px'}/> : 
                             <></>}
                     </Flex>
                     <TextInput sendChat={sendChat} />

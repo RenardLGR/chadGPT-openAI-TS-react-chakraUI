@@ -30,8 +30,9 @@ const TextInput:FC<Props> = ({ sendChat }) => {
     return (
         <Container maxWidth={'3xl'}>
             <Textarea
-                bg='pink.300'
-                color='white'
+                bg='red.700'
+                fontSize={'xl'}
+                color='blue.300'
                 padding={4}
                 marginTop={6}
                 height={200}
@@ -39,11 +40,11 @@ const TextInput:FC<Props> = ({ sendChat }) => {
                 onChange={(e) => setText(e.target.value)}
             />
             <Button
-                bg='pink.300'
-                color='white'
+                bg='blackAlpha.900'
+                color='red.400'
                 marginTop={4}
                 width='100%'
-                _hover={{ bg: 'pink.700' }}
+                _hover={{ bg: 'red.600', color:'blackAlpha.900'}}
                 onClick={submitText}
             >✍(◔◡◔)</Button>
         </Container>

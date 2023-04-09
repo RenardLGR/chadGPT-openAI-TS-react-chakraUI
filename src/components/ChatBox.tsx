@@ -1,20 +1,31 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { FC } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Container } from '@chakra-ui/layout'
 import Message from './Message'
 
-const ChatBox = ({history}) => {
+type Props = {
+    history: [string, string][]
+}
 
+const ChatBox: FC<Props> = ({ history }) => {
 
-  return (
-    <Container maxWidth="fit-content" overflow={'auto'} height={'75vh'}>
-        {history.map((item, idx) => {
-            return (
-            <Message key={idx} message={item}/>
-            )
-    })}
-    </Container>
-  )
+    //autoscroll down
+    const containerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      }
+    }, [history]);
+
+    return (
+        <Container maxWidth="fit-content" overflow={'auto'} height={'75vh'} ref={containerRef}>
+            {history.map((item: [string, string], idx: number) => {
+                return (
+                    idx !== 0 ? <Message key={idx} message={item} /> : null
+                )
+            })}
+        </Container>
+    )
 }
 
 export default ChatBox
