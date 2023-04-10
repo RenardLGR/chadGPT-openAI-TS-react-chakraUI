@@ -24,6 +24,7 @@ const TextInput:FC<Props> = ({ sendChat }) => {
             })
         }else{
             sendChat(text)
+            setText('')
         }
     }
 
